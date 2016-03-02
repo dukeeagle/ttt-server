@@ -2,12 +2,20 @@
   "name": "ttt-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dukeeagle/ttt-server.git"
+  },
   "author": "Luke Igel",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dukeeagle/ttt-server/issues"
+  },
+  "homepage": "https://github.com/dukeeagle/ttt-server#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
