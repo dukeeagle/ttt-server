@@ -22,7 +22,7 @@ app.post('/messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
-		timestamp: new Date();
+		timestamp: new Date()
 	};
 
 	messages.push(newMessage);
