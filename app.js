@@ -52,7 +52,7 @@ var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));  //angular distance in rad
 var d = R * c;	//distance between the two points (in meters?)
 }
 
-app.post('/messages', function(req,res){
+app.post('messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
