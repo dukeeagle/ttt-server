@@ -56,10 +56,7 @@ app.post('/messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
-		timestamp: new Date(),
-		lat:req.body.lat,
-		lon:req.body.lon,
-		distance:req.body.;
+		timestamp: new Date()
 	};
 
 	messages.push(newMessage);
