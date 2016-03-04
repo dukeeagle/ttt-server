@@ -9,6 +9,15 @@ app.use(cors());
 
 var messages = []; //make an array to hold messages
 var rooms = [];
+var users = [];
+
+
+/*app.get('/users', function(req, res)) {
+	res.json(user);
+};
+
+app.get('/users/:id/')
+*/
 
 app.get('/rooms', function(req, res) {
 	res.json(rooms);
@@ -28,6 +37,8 @@ app.post('/rooms', function(req, res) {
 	res.json(rooms);
 });
 
+
+
 app.get('/messages', function(req, res) {  //req = request, res = response
 	res.json(messages);
 });
@@ -37,7 +48,7 @@ app.get('/messages/:id', function(req,res) {
 	res.json(message);
 });
 
-app.post('/messages', function(req,res){
+app.post('/rooms/:id/messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
@@ -47,6 +58,7 @@ app.post('/messages', function(req,res){
 	messages.push(newMessage);
 	res.json(messages);
 });
+
 
 
 app.listen(process.env.PORT || 4730); //if port doesn't work, use port 4730
