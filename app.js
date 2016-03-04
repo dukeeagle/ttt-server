@@ -14,7 +14,7 @@ app.get('/rooms', function(req, res) {
 	res.json(rooms);
 });
 
-app.get('/rooms/:id', function(req, res){
+app.get('/rooms/:id/', function(req, res){
 	var room = rooms[req.params.id];
 	res.json(room);
 });
