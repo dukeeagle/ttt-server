@@ -28,7 +28,7 @@ app.get('/rooms/:id/', function(req, res){
 	res.json(room);
 });
 
-app.post('/rooms/0', function(req, res) {
+app.post('/rooms', function(req, res) {
 	var newRoom = {
 		timestamp: new Date(),
 		username: req.body.username
@@ -48,7 +48,7 @@ app.get('/messages/:id', function(req,res) {
 	res.json(message);
 });
 
-app.post('/messages', function(req,res){
+app.post('0/messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
