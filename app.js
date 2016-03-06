@@ -40,7 +40,7 @@ app.get('/rooms/:id/', function(req, res){
 	res.json(room);
 });
 
-app.post('/rooms/:id', function(req, res) {
+app.post('/rooms/', function(req, res) {
 	var newRoom = {
 		timestamp: new Date()
 		//username: req.body.username
