@@ -31,7 +31,7 @@ app.post('/users', function(req, res){
 
 
 
-app.get('/rooms/:id', function(req, res) {
+app.get('/rooms', function(req, res) {
 	res.json(rooms);
 });
 
