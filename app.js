@@ -120,7 +120,7 @@ app.post('/messages', function(req,res){
 		timestamp: new Date(),
 		lat:req.body.lat,
 		lon:req.body.lon,
-		distance:req.body.;
+		distance:req.body
 	};
 
 	messages.push(newMessage);
