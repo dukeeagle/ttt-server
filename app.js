@@ -9,7 +9,7 @@ app.use(cors());
 
 var messages = []; //make an array to hold messages
 var rooms = [];
-var users = [];
+/*var users = [];
 
 
 app.get('/users', function(req, res)) {
@@ -26,7 +26,7 @@ app.post('/users', function(req, res){
 	users.push(newUser);
 	res.json(users);
 	console.log(users);
-});
+});*/
 
 
 
