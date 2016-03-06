@@ -9,12 +9,13 @@ app.use(cors());
 
 var messages = []; //make an array to hold messages
 var rooms = [];
+
 /*var users = [];
 
 
-app.get('/users', function(req, res)) {
+app.get('/users', function(req, res) {
 	res.json(user);
-};
+});
 
 app.get('/users/:id/', function(req, res) {
 	var user = users[req.params.id];
