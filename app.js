@@ -31,7 +31,7 @@ app.post('/users', function(req, res){
 
 
 
-app.get('/rooms', function(req, res) {
+app.get('/rooms/:id', function(req, res) {
 	res.json(rooms);
 });
 
@@ -40,7 +40,7 @@ app.get('/rooms/:id/', function(req, res){
 	res.json(room);
 });
 
-app.post('/rooms', function(req, res) {
+app.post('/rooms/:id', function(req, res) {
 	var newRoom = {
 		timestamp: new Date()
 		//username: req.body.username
