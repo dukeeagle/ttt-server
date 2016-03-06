@@ -56,7 +56,7 @@ app.get('/messages', function(req, res) {  //req = request, res = response
 	res.json(messages);
 });
 
-app.get('/messages/:id', function(req,res) {
+app.get('/rooms/:id/messages/:id', function(req,res) {
 	var message = messages[req.params.id];
 	res.json(message);
 });
