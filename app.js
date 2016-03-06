@@ -35,15 +35,15 @@ app.get('/rooms', function(req, res) {
 	res.json(rooms);
 });
 
-app.get('/rooms/:id/', function(req, res){
-	var room = rooms[req.params.id];
+app.get('/rooms/:roomId/', function(req, res){
+	var room = rooms[req.params.roomId];
 	res.json(room);
 });
 
-app.post('/rooms', function(req, res) {
+app.post('/rooms/:roomId', function(req, res) {
 	var newRoom = {
 		timestamp: new Date(),
-		username: req.body.username
+		//username: req.body.username
 	};
 	rooms.push(newRoom);
 	res.json(rooms);
@@ -56,7 +56,7 @@ app.get('/messages', function(req, res) {  //req = request, res = response
 	res.json(messages);
 });
 
-app.get('/rooms/:id/messages/:id', function(req,res) {
+app.get('messages/:id', function(req,res) {
 	var message = messages[req.params.id];
 	res.json(message);
 });
