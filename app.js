@@ -42,7 +42,7 @@ app.get('/rooms/:id/', function(req, res){
 
 app.post('/rooms', function(req, res) {
 	var newRoom = {
-		timestamp: new Date(),
+		timestamp: new Date()
 		//username: req.body.username
 	};
 	rooms.push(newRoom);
@@ -52,7 +52,7 @@ app.post('/rooms', function(req, res) {
 
 
 
-app.get('/messages', function(req, res) {  //req = request, res = response
+app.get('/rooms/:id/messages', function(req, res) {  //req = request, res = response
 	res.json(messages);
 });
 
