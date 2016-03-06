@@ -35,6 +35,7 @@ app.post('/rooms', function(req, res) {
 	};
 	rooms.push(newRoom);
 	res.json(rooms);
+	console.log(rooms);
 });
 
 
@@ -48,7 +49,7 @@ app.get('/messages/:id', function(req,res) {
 	res.json(message);
 });
 
-app.post('0/messages', function(req,res){
+app.post('/messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
