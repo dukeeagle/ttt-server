@@ -49,7 +49,7 @@ app.get('/messages/:id', function(req,res) {
 	res.json(message);
 });
 
-app.post('/messages', function(req,res){
+app.post(req.params.id + '/messages', function(req,res){
 	var newMessage = {
 		message:req.body.message,
 		username:req.body.username,
