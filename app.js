@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 
 var app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 app.use(cors());
 
 var messages = []; //make an array to hold messages
@@ -42,8 +45,9 @@ app.get('/rooms/:id/', function(req, res){
 
 app.post('/rooms/', function(req, res) {
 	var newRoom = {
-		timestamp: new Date()
+		timestamp: new Date(),
 		//username: req.body.username
+		name: req.body.roomNameToCreate
 	};
 	rooms.push(newRoom);
 	res.json(rooms);
