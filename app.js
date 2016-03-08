@@ -35,7 +35,8 @@ app.post('/rooms', function(req,res){
 		id:rooms.length, 
 		username:req.body.username,
 		timestamp: new Date(), 
-		messages: []
+		messages: [],
+		players: []
 	};
 	rooms.push(newRoom);
 	res.json(rooms);
@@ -49,6 +50,13 @@ app.post('/rooms/:id/messages', function(req, res){
 		message: req.body.message
 	}
 	room.messages.push(newMessage);
+	res.json(room);
+});
+
+app.post('/rooms/:id/players', function(req, res){
+	var room = rooms[req.params.id];
+	var newPlayer = req.body.username;
+	room.players.push(newPlayer);
 	res.json(room);
 });
 
