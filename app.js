@@ -8,26 +8,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 var users = [];
-function UserIsClose(lat1, lat2, lon1, lon2){
-	var R = 6371000; //Earth's radius in metres
-	var lat1Rad = lat1.toRadians();
-	var lat2Rad = lat2.toRadians();
-	var deltaLat = (lat2-lat1).toRadians();
-	var deltaLon = (lon2-lon1).toRadians();
-
-	var a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
-			Math.cos(lat1Rad) * Math.cos(lat2Rad) *
-			Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
-	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));  //angular distance in radians
-
-	var d = R * c;	//distance between the two points
-
-	if(d <= 8000){
-		return true;
-	}else{
-		return false;
-	}
-}
 
 var rooms = []; //make an array to hold rooms
 
@@ -54,9 +34,7 @@ app.post('/rooms', function(req,res){
 		name:req.body.name,
 		id:rooms.length, 
 		username:req.body.username,
-		timestamp: new Date(),
-		lat:req.body.lat,
-		lon:req.body.lon, 
+		timestamp: new Date(), 
 		messages: []
 	};
 	rooms.push(newRoom);
@@ -77,8 +55,6 @@ app.post('/rooms/:id/messages', function(req, res){
 app.post('/users', function(req, res){
 	var newUser = {
 		username: req.body.username,
-		lat: req.body.lat,
-		lon: req.body.lon,
 		id: users.length
 	}
 	users.push(newUser);
