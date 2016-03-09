@@ -65,10 +65,12 @@ app.post('/rooms/:id/players', function(req, res){
 	var room = rooms[req.params.id];
 	var newPlayer = {
 		timestamp: new Date(),
-		player: req.body.username
+		username: req.body.username
 	};
+	
 	room.players.push(newPlayer);
 	res.json(room);
+
 });
 
 app.post('/users', function(req, res){
