@@ -6,12 +6,13 @@
   "scripts": {
     "start": "node app.js"
   },
-  "author": "William Walcher",
+  "author": "Luke Igel",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
   },
   "engines":{
 	"node": "4.2.2"

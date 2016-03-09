@@ -6,6 +6,14 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+	socket.emit('hello!');
+	console.log('connection');
+});
+
 
 var users = [];
 
