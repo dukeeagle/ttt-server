@@ -79,7 +79,11 @@ app.post('/users', function(req, res){
 		id: users.length
 	}
 	users.push(newUser);
-	res.json(newUser);
+	res.json(newUser) ;
+});
+
+io.on('player enter', function(newPlayer){
+	socket.emit('new player', newPlayer);
 });
 
 app.listen(process.env.PORT || 4730); //if port doesn't work, use port 4730
