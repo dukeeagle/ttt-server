@@ -22,12 +22,6 @@ var rooms = []; //make an array to hold rooms
 app.get('/rooms', function(req, res) {  //req = request, res = response
 	var user = users[req.params.id];
 	var userRooms=[];
-	//for(room in rooms){  [try and fix this stuff]
-		//if(new UserIsClose(room.lat, user.lat, room.lon, user.lon)){
-			//userRooms.push(room);
-			//console.log("This room is close enough" + room);
-		//}
-	//}
 	res.json(rooms);
 	//res.json(userRooms);
 });
@@ -71,6 +65,9 @@ app.post('/rooms/:id/players', function(req, res){
 	room.players.push(newPlayer);
 	res.json(room);
 
+	io.on('player enter', function(newPlayer){
+	socket.emit('new player', newPlayer);
+	});
 });
 
 app.post('/users', function(req, res){
@@ -82,8 +79,5 @@ app.post('/users', function(req, res){
 	res.json(newUser) ;
 });
 
-io.on('player enter', function(newPlayer){
-	socket.emit('new player', newPlayer);
-});
 
 app.listen(process.env.PORT || 4730); //if port doesn't work, use port 4730
