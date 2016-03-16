@@ -10,10 +10,10 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
 
-io.on('connection', function(socket){
+/*io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
-});
+});*/
 
 
 var users = [];
