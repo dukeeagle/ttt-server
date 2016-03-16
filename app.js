@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 app.use(cors());
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+//var io = socket.listen(server);
 
 io.on('connection', function(socket){
 	socket.emit('hello!');
@@ -80,4 +81,4 @@ app.post('/users', function(req, res){
 });
 
 
-app.listen(process.env.PORT || 4730); //if port doesn't work, use port 4730
+http.listen(process.env.PORT || 8100); //if port doesn't work, use port 8100
