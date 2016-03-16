@@ -10,10 +10,10 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
 
-/*io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
-});*/
+});
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -72,9 +72,9 @@ app.post('/rooms/:id/players', function(req, res){
 	room.players.push(newPlayer);
 	res.json(room);
 
-	/*io.on('player enter', function(newPlayer){
+	io.on('player enter', function(newPlayer){
 	socket.emit('new player', newPlayer);
-	});*/
+	});
 });
 
 app.post('/users', function(req, res){
