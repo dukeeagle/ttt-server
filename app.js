@@ -65,7 +65,6 @@ app.post('/rooms/:id/messages', function(req, res){
 app.post('/rooms/:id/players', function(req, res){
 	var room = rooms[req.params.id];
 	var newPlayer = {
-		timestamp: new Date(),
 		username: req.body.username
 	};
 	
@@ -83,8 +82,12 @@ app.post('/users', function(req, res){
 		id: users.length
 	}
 	users.push(newUser);
-	res.json(newUser) ;
+	res.json(newUser);
 });
+
+/*io.on('player left', function(playerList){
+
+});*/
 
 
 server.listen(process.env.PORT || 8100); //if port doesn't work, use port 8100
