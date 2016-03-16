@@ -81,4 +81,4 @@ app.post('/users', function(req, res){
 });
 
 
-app.listen(process.env.PORT || 8100); //if port doesn't work, use port 8100
+server.listen(process.env.PORT || 8100); //if port doesn't work, use port 8100
