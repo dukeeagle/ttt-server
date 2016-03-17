@@ -85,6 +85,11 @@ app.post('/users', function(req, res){
 	res.json(newUser);
 });
 
+app.delete('/rooms/:id/players', function(req, res){
+	var room= rooms[req.params.id];
+	delete room.players[req.params.id];
+	res.json(room);
+});
 /*io.on('player left', function(playerList){
 
 });*/
