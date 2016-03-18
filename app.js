@@ -10,9 +10,21 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
 
+var usernames = [];
+var socketRooms = [];
 io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
+	socket.on('adduser', function(username){
+		socket.username = username;
+		usernames[username] = username;
+	});
+	socket.on('enterroom', function(thisRoom){
+		socketRooms.push(thisRoom);
+		socketRooms[thisRoom] = thisRoom;
+		socket.join(thisRoom);
+	});
+
 });
 
 app.use(function(req, res, next) {
@@ -85,11 +97,11 @@ app.post('/users', function(req, res){
 	res.json(newUser);
 });
 
-app.delete('/rooms/:id/players', function(req, res){
-	var room= rooms[req.params.id];
+/*app.delete('/rooms/:id/players', function(req, res){
+	var room = rooms[req.params.id];
 	delete room.players[req.params.id];
 	res.json(room);
-});
+});*/
 /*io.on('player left', function(playerList){
 
 });*/
