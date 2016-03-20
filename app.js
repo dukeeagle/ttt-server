@@ -118,7 +118,7 @@ app.post('/users', function(req, res){
 	res.json(newUser);
 });
 
-app.delete('/rooms/:id/players', function(req, res){
+/*app.delete('/rooms/:id/players', function(req, res){
 	var room = rooms[req.params.id];
 	io
 	//delete room.players[req.params.id];
