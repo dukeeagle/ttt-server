@@ -37,7 +37,7 @@ io.sockets.on('connection', function(socket){
 	});*/
 	socket.on('leaveRoom', function(){
 		socket.leave(socket.room);
-		sockets.emit('updateRoom', socket.username + 'has left the room');
+		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
 		delete usernames[socket.username];
@@ -104,8 +104,8 @@ app.post('/rooms/:id/players', function(req, res){
 	room.players.push(newPlayer);
 	res.json(room);
 
-	io.socket.room = room;
-	io.socket.join(room);
+	io.socket.room = room.players;
+	io.socket.join(room.players);
 	io.sockets.emit('playerEnter', socket.room);
 });
 
@@ -118,11 +118,12 @@ app.post('/users', function(req, res){
 	res.json(newUser);
 });
 
-/*app.delete('/rooms/:id/players', function(req, res){
+app.delete('/rooms/:id/players', function(req, res){
 	var room = rooms[req.params.id];
-	delete room.players[req.params.id];
+	io
+	//delete room.players[req.params.id];
 	res.json(room);
-});*/
+});
 /*io.on('player left', function(playerList){
 
 });*/
