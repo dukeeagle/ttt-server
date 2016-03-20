@@ -19,6 +19,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('addUser', function(username){
 		socket.username = username;
 		usernames[username] = username;
+		socket.emit('updateUser', username + "has connected");
 	});
 	socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
@@ -26,9 +27,11 @@ io.sockets.on('connection', function(socket){
 	socket.on('enterRoom', function(thisRoom){
 		socketRooms[thisRoom] = thisRoom;
 		socket.join(thisRoom);
+		socket.emit('updateRoom', socket.username + 'has joined the room');
 	});
 	socket.on('leaveRoom', function(){
 		socket.leave(socket.room);
+		socket.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
 		delete usernames[socket.username];
