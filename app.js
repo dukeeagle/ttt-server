@@ -29,7 +29,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('enterRoom', function(thisRoom){
 		socketRooms[thisRoom] = thisRoom;
 		socket.join(thisRoom);
-		socket.emit('updateRoom', socket.username + 'has joined the room');
+		socket.emit('updateRoom', socketRooms);
 	});
 	socket.on('leaveRoom', function(){
 		socket.leave(socket.room);
@@ -97,8 +97,8 @@ app.post('/rooms/:id/players', function(req, res){
 	room.players.push(newPlayer);
 	res.json(room);
 
-	io.on('player enter', function(newPlayer){
-	socket.emit('new player', newPlayer);
+	io.sockets.on('player enter', function(newPlayer){
+		io.sockets.emit('new player', newPlayer);
 	});
 });
 
