@@ -29,7 +29,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('enterRoom', function(thisRoom){
 		socketRooms[thisRoom] = thisRoom;
 		socket.join(thisRoom);
-		socket.emit('updateRoom', socketRooms);
+		socket.emit('updateRoom', socket.room);
 	});
 	socket.on('leaveRoom', function(){
 		socket.leave(socket.room);
