@@ -24,6 +24,7 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
+		io.sockets.emit('updateRooms', socketRooms);
 	});
 	socket.on('enterRoom', function(thisRoom){
 		socketRooms[thisRoom] = thisRoom;
