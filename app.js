@@ -35,7 +35,7 @@ io.sockets.on('connection', function(socket){
 		socket.join(thisRoom);
 		io.sockets.emit('updateRoom', socket.room);
 	});*/
-	socket.on('leaveRoom', function(){
+	socket.on('leaveRoom', function(socket){
 		socket.leave(socket.room);
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
@@ -95,7 +95,7 @@ app.post('/rooms/:id/messages', function(req, res){
 	res.json(room);
 });
 
-app.post('/rooms/:id/players', function(req, res){
+app.post('/rooms/:id/players', function(req, res, socket){
 	var room = rooms[req.params.id];
 	var newPlayer = {
 		username: req.body.username
