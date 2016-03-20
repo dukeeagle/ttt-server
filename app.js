@@ -104,8 +104,8 @@ app.post('/rooms/:id/players', function(req, res){
 	room.players.push(newPlayer);
 	res.json(room);
 
-	socket.room = room;
-	socket.join(room);
+	io.socket.room = room;
+	io.socket.join(room);
 	io.sockets.emit('playerEnter', socket.room);
 });
 
