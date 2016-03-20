@@ -35,14 +35,14 @@ io.sockets.on('connection', function(socket){
 		socket.join(thisRoom);
 		io.sockets.emit('updateRoom', socket.room);
 	});*/
-	socket.on('leaveRoom', function(socket){
+	/*socket.on('leaveRoom', function(socket){
 		socket.leave(socket.room);
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
 		delete usernames[socket.username];
 		socket.leave(socket.room);
-	});
+	});*/
 })
 ;
 app.use(function(req, res, next) {
