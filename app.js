@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+var uuid = require('node-uuid');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
@@ -15,18 +16,26 @@ var socketRooms = [];
 io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
-	socket.on('adduser', function(username){
+	socket.on('addUser', function(username){
 		socket.username = username;
 		usernames[username] = username;
 	});
-	socket.on('enterroom', function(thisRoom){
-		socketRooms.push(thisRoom);
+	socket.on('createRoom', function(newRoom){
+		socketRooms.push(newRoom);
+	});
+	socket.on('enterRoom', function(thisRoom){
 		socketRooms[thisRoom] = thisRoom;
 		socket.join(thisRoom);
 	});
-
-});
-
+	socket.on('leaveRoom', function(){
+		socket.leave(socket.room);
+	});
+	socket.on('disconnect', function(){
+		delete usernames[socket.username];
+		socket.leave(socket.room);
+	});
+})
+;
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
