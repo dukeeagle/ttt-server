@@ -23,12 +23,12 @@ io.sockets.on('connection', function(socket){
 		io.sockets.emit('updateUser', usernames);
 		io.sockets.emit('updateRooms', socketRooms);
 	});
-	socket.on('createRoom', function(newRoom){
+	/*socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
 		socketRooms[newRoom] = newRoom;
 		io.sockets.emit('updateRoomsTest', newRoom);
 		io.sockets.emit('updateRooms', socketRooms);
-	});
+	});*/
 	socket.on('enterRoom', function(thisRoom){
 		socketRooms[thisRoom] = thisRoom;
 		socket.join(thisRoom);
@@ -36,7 +36,7 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('leaveRoom', function(){
 		socket.leave(socket.room);
-		socket.emit('updateRoom', socket.username + 'has left the room');
+		sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
 		delete usernames[socket.username];
@@ -78,6 +78,9 @@ app.post('/rooms', function(req,res){
 	};
 	rooms.push(newRoom);
 	res.json(rooms);
+
+	socketRooms.push(newRoom);
+	io.sockets.emit('createdRoom', socketRooms);
 });
 
 app.post('/rooms/:id/messages', function(req, res){
