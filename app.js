@@ -18,8 +18,9 @@ io.sockets.on('connection', function(socket){
 	console.log('connection');
 	socket.on('addUser', function(username){
 		socket.username = username;
+		usernames.push(username);
 		usernames[username] = username;
-		socket.emit('updateUser', username + "has connected");
+		io.sockets.emit('updateUser', usernames);
 	});
 	socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
