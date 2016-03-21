@@ -96,27 +96,27 @@ app.post('/rooms/:id/messages', function(req, res){
 });
 
 app.post('/rooms/:id/players', function(req, res){
-	var remove = 0;
-	if(remove === 0){
-		var room = rooms[req.params.id];
-		var newPlayer = {
-			username: req.body.username
-		};
+	var room = rooms[req.params.id];
+	var newPlayer = {
+		username: req.body.username
+	};
 	
-		room.players.push(newPlayer);
-		res.json(room);
-	} else {
-		var room = rooms[req.params.id];
-		for(var i = room.players.length -1; i >= 0; i--){
+	room.players.push(newPlayer);
+	res.json(room);
+			
+	/*io.socket.room = room.players;
+	io.socket.join(room.players);
+	io.sockets.emit('playerEnter', socket.room);*/
+});
+
+app.put('/rooms/:id/players', function(req, res){
+	var room = rooms[req.params.id];
+	for(var i = room.players.length -1; i >= 0; i--){
 			if(room.players[i] === {username: req.body.username}){
 				room.players.splice(i, 1);
 				res.json(room);
 			}	
-		}
 	}
-	/*io.socket.room = room.players;
-	io.socket.join(room.players);
-	io.sockets.emit('playerEnter', socket.room);*/
 });
 
 app.post('/users', function(req, res){
