@@ -11,7 +11,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
 var corser = require('corser');
-var lang = ('lodash/Lang');
+var _ = ('lodash');
 
 var usernames = [];
 var socketRooms = [];
@@ -131,7 +131,7 @@ app.put('/rooms/:id/players', function(req, res){
 		username: req.body.username
 	};
 	for(var i = room.players.length -1; i >= 0; i--){
-			if(lang.isEqual(room.players[i], leavePlayer)){
+			if(_.isEqual(room.players[i], leavePlayer)){
 				room.players.splice(i, 1);
 				//res.json(room);
 			}	
