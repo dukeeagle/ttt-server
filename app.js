@@ -95,18 +95,27 @@ app.post('/rooms/:id/messages', function(req, res){
 	res.json(room);
 });
 
-app.post('/rooms/:id/players', function(req, res, socket){
-	var room = rooms[req.params.id];
-	var newPlayer = {
-		username: req.body.username
-	};
+app.post('/rooms/:id/players', function(req, res, remove){
+	if(remove === 0){
+		var room = rooms[req.params.id];
+		var newPlayer = {
+			username: req.body.username
+		};
 	
-	room.players.push(newPlayer);
-	res.json(room);
-
-	//io.socket.room = room.players;
+		room.players.push(newPlayer);
+		res.json(room);
+	} else {
+		var room = rooms[req.params.id];
+		for(var i = room.players.length -1; i >= 0; i--){
+			if(room.players[i] === {username: req.body.username}){
+				room.players.splice(i, 1);
+				res.json(room);
+			}	
+		}
+	}
+	/*io.socket.room = room.players;
 	io.socket.join(room.players);
-	io.sockets.emit('playerEnter', socket.room);
+	io.sockets.emit('playerEnter', socket.room);*/
 });
 
 app.post('/users', function(req, res){
