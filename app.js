@@ -10,6 +10,8 @@ var uuid = require('node-uuid');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
+var corser = require('corser');
+
 
 var usernames = [];
 var socketRooms = [];
@@ -45,11 +47,24 @@ io.sockets.on('connection', function(socket){
 	});*/
 })
 ;
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", 'POST,GET,DELETE,PUT,OPTIONS');
   next();
+});*/
+
+
+// Configure CORS (Cross-Origin Resource Sharing) Headers 
+app.use(corser.create({
+    methods: corser.simpleMethods.concat(["PUT"]),
+    requestHeaders: corser.simpleRequestHeaders.concat(["X-Requested-With"])
+}));
+app.all('*', function(request, response, next) {
+    response.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With,Authorization,Access-Control-Allow-Origin');
+    response.header('Access-Control-Allow-Methods', 'POST,GET,DELETE');
+    response.header('Access-Control-Allow-Origin', '*');
+    next();
 });
 
 
