@@ -11,7 +11,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 //var io = socket.listen(server);
 var corser = require('corser');
-var _ = ('lodash');
+var _ = require('lodash');
 
 var usernames = [];
 var socketRooms = [];
@@ -131,6 +131,7 @@ app.put('/rooms/:id/players', function(req, res){
 		username: req.body.username
 	};
 	for(var i = room.players.length -1; i >= 0; i--){
+		//var object = room.players[i];	
 			if(_.isEqual(room.players[i], leavePlayer)){
 				room.players.splice(i, 1);
 				//res.json(room);
