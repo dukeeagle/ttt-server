@@ -130,9 +130,10 @@ app.put('/rooms/:id/players', function(req, res){
 	for(var i = room.players.length -1; i >= 0; i--){
 			if(room.players[i] === {username: req.body.username}){
 				room.players.splice(i, 1);
-				res.json(room);
+				//res.json(room);
 			}	
 	}
+	res.json(room);
 });
 
 app.post('/users', function(req, res){
