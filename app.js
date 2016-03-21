@@ -9,7 +9,7 @@ app.use(cors());
 var uuid = require('node-uuid');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var io = socket.listen(server);
+//var io = socket.listen(server);
 var corser = require('corser');
 var lang = ('lodash/Lang');
 
