@@ -95,7 +95,8 @@ app.post('/rooms/:id/messages', function(req, res){
 	res.json(room);
 });
 
-app.post('/rooms/:id/players', function(req, res, remove){
+app.post('/rooms/:id/players', function(req, res){
+	var remove = 0;
 	if(remove === 0){
 		var room = rooms[req.params.id];
 		var newPlayer = {
