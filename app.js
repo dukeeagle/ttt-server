@@ -18,12 +18,34 @@ var socketRooms = [];
 io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
-	socket.on('addUser', function(username){
+	socket.on('addUser', function(username, room){
+		/*var client = {
+			socket: socket.id
+		};*/
 		socket.username = username;
+		socket.username = socket.id;
 		usernames.push(username);
 		usernames[username] = username;
 		io.sockets.emit('updateUser', usernames);
 		io.sockets.emit('updateRooms', socketRooms);
+	});
+	socket.on('gameStart', function(room){
+		var playerCount = room.players.length;
+		var traitorIndex = Math.floor((Math.random() * playerCount) + 0);
+		for(var i = room.players.length - 1; i >= 0; i--){
+			if(i === traitorIndex){
+				for(var x = usernames.length - 1; x >= 0; x--){
+					if(_.isEqual(room.players[traitorIndex].username, usernames[x].username)){
+						
+						socket.broadcast.to(usernames[x].username).emit('traitor', "But you were the chosen one!");
+					} 
+				}
+			}
+			for(var y = usernames.length -1; x >= 0; x--){
+				if(_.isEqual(room.players[i].username, usernames[y].username)){
+					socket.broadcast.to(usernames[y].username).emit('innocent', "You best be cathing them terries");
+			}
+		}
 	});
 	/*socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
@@ -31,17 +53,17 @@ io.sockets.on('connection', function(socket){
 		io.sockets.emit('updateRoomsTest', newRoom);
 		io.sockets.emit('updateRooms', socketRooms);
 	});*/
-	/*socket.on('enterRoom', function(thisRoom){
-		socketRooms[thisRoom] = thisRoom;
-		socket.room = thisRoom;
+	socket.on('enterRoom', function(thisRoom){
+		//socketRooms[thisRoom] = thisRoom;
+		//socket.room = thisRoom;
 		socket.join(thisRoom);
 		io.sockets.emit('updateRoom', socket.room);
-	});*/
-	/*socket.on('leaveRoom', function(socket){
-		socket.leave(socket.room);
+	});
+	socket.on('leaveRoom', function(leftRoom){
+		socket.leave(leftRoom);
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
-	socket.on('disconnect', function(){
+	/*socket.on('disconnect', function(){
 		delete usernames[socket.username];
 		socket.leave(socket.room);
 	});*/
