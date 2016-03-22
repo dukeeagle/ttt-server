@@ -44,6 +44,7 @@ io.sockets.on('connection', function(socket){
 			for(var y = usernames.length -1; x >= 0; x--){
 				if(_.isEqual(room.players[i].username, usernames[y].username)){
 					socket.broadcast.to(usernames[y].username).emit('innocent', "You best be cathing them terries");
+				}
 			}
 		}
 	});
