@@ -43,7 +43,7 @@ io.sockets.on('connection', function(socket){
 					} 
 				}
 			} else{
-				for(var y = usernames.length - 1; x >= 0; x--){
+				for(var y = usernames.length - 1; y >= 0; y--){
 					if(_.isEqual(room.players[i].username, usernames[y].username)){
 						io.to(usernames[y].socket).emit('innocent', "You best be cathing them terries");
 					}
