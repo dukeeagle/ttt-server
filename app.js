@@ -37,7 +37,7 @@ io.sockets.on('connection', function(socket){
 		for(var i = room.players.length - 1; i >= 0; i--){
 			if(i === traitorIndex){
 				for(var x = usernames.length - 1; x >= 0; x--){
-					if(_isEqual(room.players[traitorIndex].username, usernames[x].username.username)){
+					if(_isEqual(room.players[traitorIndex].username, usernames[x].username)){
 						io.to(usernames[x].socket.emit('traitor', "Get ready!"));
 					}
 				}	
