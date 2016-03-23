@@ -31,10 +31,20 @@ io.sockets.on('connection', function(socket){
 		io.sockets.emit('updateRooms', socketRooms);
 	});
 	socket.on('gameStart', function(room){
-		var playerCount = room.players.length;
-		var traitorIndex = Math.floor((Math.random() * playerCount) + 0);
+		var playerCount = room.players.length - 1;
+		var traitorIndex = Math.floor((Math.random() * (playerCount - 0)) + 0);  //I know this is redundant, but whatever
 		//io.to(usernames[0].socket).emit('innocent', "Prepare thyself...");
 		for(var i = room.players.length - 1; i >= 0; i--){
+			if(i === traitorIndex){
+				for(var x = usernames.length - 1; x >= 0; x--){
+					if(_isEqual(room.players[traitorIndex].username, usernames[x].username.username)){
+						io.to(usernames[x].socket.emit('traitor', "Get ready!"));
+					}
+				}	
+			}
+		}
+
+		/*for(var i = room.players.length - 1; i >= 0; i--){
 			if(i === traitorIndex){
 				for(var x = usernames.length - 1; x >= 0; x--){
 					if(_.isEqual(room.players[traitorIndex].username, usernames[x].username.username)){
@@ -48,7 +58,7 @@ io.sockets.on('connection', function(socket){
 					io.to(usernames[y].socket).emit('innocent', "You best be cathing them terries");
 				}
 			}
-		}
+		}*/
 	});
 	/*socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
