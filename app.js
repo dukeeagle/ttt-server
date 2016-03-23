@@ -19,32 +19,33 @@ io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
 	socket.on('addUser', function(username, room){
-		/*var client = {
+		var client = {
+			username: username,
 			socket: socket.id
-		};*/
+		};
 		socket.username = username;
-		socket.username = socket.id;
-		usernames.push(socket.username);
-		usernames[username] = username;
+		//socket.username = socket.id;
+		usernames.push(client);
+		//usernames[username] = username;
 		io.sockets.emit('updateUser', usernames);
 		io.sockets.emit('updateRooms', socketRooms);
 	});
 	socket.on('gameStart', function(room){
 		var playerCount = room.players.length;
 		var traitorIndex = Math.floor((Math.random() * playerCount) + 0);
-		io.to(usernames[0]).emit('innocent', "Prepare thyself...");
+		io.to(usernames[0].socket).emit('innocent', "Prepare thyself...");
 		/*for(var i = room.players.length - 1; i >= 0; i--){
 			if(i === traitorIndex){
 				for(var x = usernames.length - 1; x >= 0; x--){
 					if(_.isEqual(room.players[traitorIndex].username, usernames[x].username)){
 						
-						socket.broadcast.to(usernames[x].username).emit('traitor', "But you were the chosen one!");
+						io.to(usernames[x].username).emit('traitor', "But you were the chosen one!");
 					} 
 				}
 			}
 			for(var y = usernames.length -1; x >= 0; x--){
 				if(_.isEqual(room.players[i].username, usernames[y].username)){
-					socket.broadcast.to(usernames[y].username).emit('innocent', "You best be cathing them terries");
+					io.to(usernames[y].username).emit('innocent', "You best be cathing them terries");
 				}
 			}
 		}*/
