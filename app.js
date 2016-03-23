@@ -9,7 +9,6 @@ app.use(cors());
 var uuid = require('node-uuid');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-//var io = socket.listen(server);
 var corser = require('corser');
 var _ = require('lodash');
 
@@ -24,16 +23,15 @@ io.sockets.on('connection', function(socket){
 			socket: socket.id
 		};
 		socket.username = username;
-		//socket.username = socket.id;
 		usernames.push(client);
-		//usernames[username] = username;
 		io.sockets.emit('updateUser', usernames);
 		io.sockets.emit('updateRooms', socketRooms);
 	});
+	
+	//Game Logic
 	socket.on('gameStart', function(room){
 		var playerCount = room.players.length;
-		var traitorIndex = Math.floor((Math.random() * (playerCount)) + 0);  //I know this is redundant, but whatever
-		//io.to(usernames[0].socket).emit('innocent', "Prepare thyself...");
+		var traitorIndex = Math.floor((Math.random() * (playerCount)) + 0);
 		for(var i = room.players.length - 1; i >= 0; i--){
 			if(i === traitorIndex){
 				for(var x = usernames.length - 1; x >= 0; x--){
@@ -51,15 +49,8 @@ io.sockets.on('connection', function(socket){
 			}
 		}
 	});
-	/*socket.on('createRoom', function(newRoom){
-		socketRooms.push(newRoom);
-		socketRooms[newRoom] = newRoom;
-		io.sockets.emit('updateRoomsTest', newRoom);
-		io.sockets.emit('updateRooms', socketRooms);
-	});*/
+
 	socket.on('enterRoom', function(thisRoom){
-		//socketRooms[thisRoom] = thisRoom;
-		//socket.room = thisRoom;
 		socket.join(thisRoom);
 		io.sockets.emit('updateRoom', socket.room);
 	});
@@ -67,10 +58,7 @@ io.sockets.on('connection', function(socket){
 		socket.leave(leftRoom);
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
-	/*socket.on('disconnect', function(){
-		delete usernames[socket.username];
-		socket.leave(socket.room);
-	});*/
+
 })
 ;
 app.use(function(req, res, next) {
@@ -96,13 +84,12 @@ app.all('*', function(request, response, next) {
 
 var users = [];
 
-var rooms = []; //make an array to hold rooms
+var rooms = []; 
 
 app.get('/rooms', function(req, res) {  //req = request, res = response
 	var user = users[req.params.id];
 	var userRooms=[];
 	res.json(rooms);
-	//res.json(userRooms);
 });
 
 app.get('/rooms/:id', function(req,res) {
@@ -145,10 +132,7 @@ app.post('/rooms/:id/players', function(req, res){
 	
 	room.players.push(newPlayer);
 	res.json(room);
-			
-	/*io.socket.room = room.players;
-	io.socket.join(room.players);
-	io.sockets.emit('playerEnter', socket.room);*/
+
 });
 
 app.put('/rooms/:id/players', function(req, res){
@@ -157,10 +141,8 @@ app.put('/rooms/:id/players', function(req, res){
 		username: req.body.username
 	};
 	for(var i = room.players.length -1; i >= 0; i--){
-		//var object = room.players[i];	
 			if(_.isEqual(room.players[i], leavePlayer)){
 				room.players.splice(i, 1);
-				//res.json(room);
 			}	
 	}
 	res.json(room);
@@ -174,16 +156,5 @@ app.post('/users', function(req, res){
 	users.push(newUser);
 	res.json(newUser);
 });
-
-/*app.delete('/rooms/:id/players', function(req, res){
-	var room = rooms[req.params.id];
-	io
-	//delete room.players[req.params.id];
-	res.json(room);
-});
-/*io.on('player left', function(playerList){
-
-});*/
-
 
 server.listen(process.env.PORT || 8100); //if port doesn't work, use port 8100
