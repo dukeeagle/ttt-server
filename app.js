@@ -32,7 +32,7 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('gameStart', function(room){
 		var playerCount = room.players.length;
-		var traitorIndex = Math.floor((Math.random() * (playerCount) + 0);  //I know this is redundant, but whatever
+		var traitorIndex = Math.floor((Math.random() * (playerCount)) + 0);  //I know this is redundant, but whatever
 		//io.to(usernames[0].socket).emit('innocent', "Prepare thyself...");
 		for(var i = room.players.length - 1; i >= 0; i--){
 			if(i === traitorIndex){
