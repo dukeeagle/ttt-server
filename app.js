@@ -33,22 +33,22 @@ io.sockets.on('connection', function(socket){
 	socket.on('gameStart', function(room){
 		var playerCount = room.players.length;
 		var traitorIndex = Math.floor((Math.random() * playerCount) + 0);
-		io.to(usernames[0].socket).emit('innocent', "Prepare thyself...");
-		/*for(var i = room.players.length - 1; i >= 0; i--){
+		//io.to(usernames[0].socket).emit('innocent', "Prepare thyself...");
+		for(var i = room.players.length - 1; i >= 0; i--){
 			if(i === traitorIndex){
 				for(var x = usernames.length - 1; x >= 0; x--){
-					if(_.isEqual(room.players[traitorIndex].username, usernames[x].username)){
+					if(_.isEqual(room.players[traitorIndex].username, usernames[x].username.username)){
 						
-						io.to(usernames[x].username).emit('traitor', "But you were the chosen one!");
+						io.to(usernames[x].socket).emit('traitor', "But you were the chosen one!");
 					} 
 				}
 			}
 			for(var y = usernames.length -1; x >= 0; x--){
-				if(_.isEqual(room.players[i].username, usernames[y].username)){
-					io.to(usernames[y].username).emit('innocent', "You best be cathing them terries");
+				if(_.isEqual(room.players[i].username, usernames[y].username.username)){
+					io.to(usernames[y].socket).emit('innocent', "You best be cathing them terries");
 				}
 			}
-		}*/
+		}
 	});
 	/*socket.on('createRoom', function(newRoom){
 		socketRooms.push(newRoom);
