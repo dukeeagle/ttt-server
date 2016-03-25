@@ -20,14 +20,15 @@ io.sockets.on('connection', function(socket){
 	socket.on('addUser', function(username, room){
 		var client = {
 			username: username,
-			socket: socket.id
+			socket: socket.id,
+			room: 
 		};
 		socket.username = username;
 		usernames.push(client);
 		io.sockets.emit('updateUser', usernames);
 		io.sockets.emit('updateRooms', socketRooms);
 	});
-	
+
 	//Game Logic
 	socket.on('gameStart', function(room){
 		var playerCount = room.players.length;
@@ -53,12 +54,19 @@ io.sockets.on('connection', function(socket){
 	socket.on('enterRoom', function(thisRoom){
 		socket.join(thisRoom);
 		io.sockets.emit('updateRoom', socket.room);
+		socket.username
 	});
 	socket.on('leaveRoom', function(leftRoom){
 		socket.leave(leftRoom);
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
+	socket.on('disconnect', function(){
+		/*for(var i = users.length - 1; i >= 0; i--){
+			if(_.isEqual(room.players[i].username,)){
 
+			}
+		}*/
+	});
 })
 ;
 app.use(function(req, res, next) {
