@@ -129,11 +129,15 @@ app.post('/rooms', function(req,res){
 
 
 app.put('/rooms', function(req, res){
-	room = req.room;
-	for(var i = rooms.length -1; i >= 0; i--){	
-			if(_.isEqual(rooms[i], room)){
-				room.splice(i, 1);
-				
+	var delRoom = {
+		id:req.body.id,
+		username:req.body.username
+	};
+	for(var i = rooms.length -1; i >= 0; i--){
+		//var object = room.players[i];	
+			if(_.isEqual(rooms[i].id, delRoom.id)){
+				room.players.splice(i, 1);
+				//res.json(room);
 			}	
 	}
 	res.json(rooms);
