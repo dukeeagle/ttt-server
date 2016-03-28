@@ -131,16 +131,19 @@ app.post('/rooms', function(req,res){
 app.put('/rooms', function(req, res){
 	var delRoom = {
 		id:req.body.id,
-		username:req.body.username
+		username:req.body.username,
+		players:req.body.players
 	};
-	for(var i = rooms.length -1; i >= 0; i--){
-		//var object = room.players[i];	
-			if(_.isEqual(rooms[i].id, delRoom.id)){
-				rooms.splice(i, 1);
-				//res.json(room);
-			}	
+	if(delRoom.players.length == 0){
+		for(var i = rooms.length -1; i >= 0; i--){
+			//var object = room.players[i];	
+				if(_.isEqual(rooms[i].id, delRoom.id)){
+					rooms.splice(i, 1);
+					//res.json(room);
+				}	
+		}
+		res.json(rooms);
 	}
-	res.json(rooms);
 
 });
 
