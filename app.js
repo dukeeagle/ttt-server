@@ -136,7 +136,7 @@ app.put('/rooms', function(req, res){
 	for(var i = rooms.length -1; i >= 0; i--){
 		//var object = room.players[i];	
 			if(_.isEqual(rooms[i].id, delRoom.id)){
-				room.players.splice(i, 1);
+				rooms.splice(i, 1);
 				//res.json(room);
 			}	
 	}
