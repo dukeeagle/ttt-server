@@ -67,10 +67,11 @@ io.sockets.on('connection', function(socket){
 		socket.leave(leftRoom);
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
-	/*socket.on('disconnect', function(){
-		delete usernames[socket.username];
-		socket.leave(socket.room);
-	});*/
+	socket.on('disconnect', function(){
+		/*delete usernames[socket.username];
+		socket.leave(socket.room);*/
+
+	});
 })
 ;
 app.use(function(req, res, next) {
@@ -124,6 +125,19 @@ app.post('/rooms', function(req,res){
 
 	socketRooms.push(newRoom);
 	io.sockets.emit('createdRoom', rooms);
+});
+
+
+app.put('/rooms', function(req, res){
+	room = req.room;
+	for(var i = rooms.length -1; i >= 0; i--){	
+			if(_.isEqual(rooms[i], room)){
+				room.splice(i, 1);
+				
+			}	
+	}
+	res.json(rooms);
+
 });
 
 app.post('/rooms/:id/messages', function(req, res){
