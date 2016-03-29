@@ -70,7 +70,6 @@ io.sockets.on('connection', function(socket){
 	socket.on('disconnect', function(){
 		/*delete usernames[socket.username];
 		socket.leave(socket.room);*/
-		
 
 	});
 })
@@ -111,7 +110,7 @@ app.get('/rooms/:id', function(req,res) {
 	var room = rooms[req.params.id];
 	res.json(room);
 });
-
+
 app.post('/rooms', function(req,res){
 	var newRoom = {
 		name:req.body.name,
