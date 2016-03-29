@@ -115,7 +115,7 @@ app.post('/rooms', function(req,res){
 	var newRoom = {
 		name:req.body.name,
 		id:rooms.length, 
-		username:req.body.creatorName,
+		username:req.body.username,
 		timestamp: new Date(), 
 		messages: [],
 		players: []
