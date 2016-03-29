@@ -70,6 +70,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('disconnect', function(){
 		/*delete usernames[socket.username];
 		socket.leave(socket.room);*/
+		
 
 	});
 })
@@ -115,7 +116,7 @@ app.post('/rooms', function(req,res){
 	var newRoom = {
 		name:req.body.name,
 		id:rooms.length, 
-		username:req.body.username,
+		username:req.body.creatorName,
 		timestamp: new Date(), 
 		messages: [],
 		players: []
