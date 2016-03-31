@@ -72,8 +72,41 @@ io.sockets.on('connection', function(socket){
 		socket.leave(socket.room);*/
 
 	});
-})
-;
+});
+
+function haversine(lat1, lon1, lat2, lon2){
+	
+	var isClose = 0;
+		
+	Number.prototype.toRad = function() {
+	   return this * Math.PI / 180;
+	}
+
+	var lat2 = 9.748916999999999; 
+	var lon2 = -83.75342799999999; 
+	var lat1 = 44.875818; 
+	var lon1 = -93.53282100000001; 
+
+	var R = 6371; // earth's radius in km 
+
+	var x1 = lat2-lat1;
+	var dLat = x1.toRad();  
+	var x2 = lon2-lon1;
+	var dLon = x2.toRad();  
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+	                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+	                Math.sin(dLon/2) * Math.sin(dLon/2);  
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+	var d = R * c;  //in km
+
+	if(d <= 8.04672){	//5 miles
+		isClose = 1;
+	} 
+	return isClose;
+
+	console.log(d);
+}
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -116,7 +149,9 @@ app.post('/rooms', function(req,res){
 		name:req.body.name,
 		id:rooms.length, 
 		username:req.body.username,
-		timestamp: new Date(), 
+		timestamp: new Date(),
+		lat:req.body.lat,
+		lon:req.body.lon,
 		messages: [],
 		players: []
 	};
