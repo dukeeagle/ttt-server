@@ -82,7 +82,7 @@ function haversine(lat1, lon1, lat2, lon2){
 	   return this * Math.PI / 180;
 	}
 
-	var lat2 = 9.748916999999999; 
+	var lat2 = 9.748916999999999; 
 	var lon2 = -83.75342799999999; 
 	var lat1 = 44.875818; 
 	var lon1 = -93.53282100000001; 
