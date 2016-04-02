@@ -21,7 +21,10 @@ io.sockets.on('connection', function(socket){
 	socket.on('addUser', function(username, room){
 		var client = {
 			username: username,
-			socket: socket.id
+			//lat: req.body.lat,
+			//lon: req.body.lon,
+			socket: socket.id,
+			userRooms: []
 		};
 		socket.username = username;
 		//socket.username = socket.id;
@@ -134,9 +137,9 @@ var rooms = []; //make an array to hold rooms
 
 app.get('/rooms', function(req, res) {  //req = request, res = response
 	var user = users[req.params.id];
-	var userRooms=[];
 	res.json(rooms);
 	//res.json(userRooms);
+
 });
 
 app.get('/rooms/:id', function(req,res) {
@@ -150,13 +153,24 @@ app.post('/rooms', function(req,res){
 		id:rooms.length, 
 		username:req.body.username,
 		timestamp: new Date(),
-		lat:req.body.lat,
-		lon:req.body.lon,
+		//lat:req.body.lat,
+		//lon:req.body.lon,
 		messages: [],
 		players: []
 	};
+
+	/*for(i = rooms.length - 1; i >= 0; i--){
+		for(x = usernames.length - 1; x >= 0; x--){
+			if(new haversine(rooms[i].lat, rooms[i].lon, usernames[x].lat, usernames[x].lon)){
+				usernames.rooms.push(rooms[i]);
+
+			}
+		}
+	}*/
+
 	rooms.push(newRoom);
 	res.json(rooms);
+	//res.json(usernames);
 
 	socketRooms.push(newRoom);
 	io.sockets.emit('createdRoom', rooms);
