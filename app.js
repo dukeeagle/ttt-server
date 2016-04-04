@@ -23,9 +23,10 @@ io.sockets.on('connection', function(socket){
 			//lat: req.body.lat,
 			//lon: req.body.lon,
 			id:users.length,
-			socket: socket.id
-			//userRooms: []
+			socket: socket.id,
+			userRoom: []
 		};
+		socket.id = users.length;
 		socket.username = username;
 		usernames.push(client);
 		io.sockets.emit('updateUser', usernames);
@@ -56,19 +57,30 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('enterRoom', function(thisRoom){
 		socket.join(thisRoom);
+		for(var i = users.length -1; i >= 0; i--){
+				if(_.isEqual(users[i].socket, socket.id)){
+					users[i].userRoom = thisRoom;
+				}	
+		}
 		io.sockets.emit('updateRoom', socket.room);
 	});
 	socket.on('leaveRoom', function(leftRoom){
 		socket.leave(leftRoom);
+		for(var i = users.length -1; i >= 0; i--){
+				if(_.isEqual(users[i].socket, socket.id)){
+					users[i].userRoom = undefined;
+				}	
+		}
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
-		for(var i = users.length -1; i >= 0; i--){
+		/*for(var i = users.length -1; i >= 0; i--){
 				if(_.isEqual(users[i].username, socket.username)){
 					users.splice(i, 1);
 				}	
-		}
+		}*/
 		//delete usernames[usernames.indexOf(socket.username)];
+
 	});
 });
 
