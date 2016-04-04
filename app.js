@@ -88,7 +88,7 @@ io.sockets.on('connection', function(socket){
 		}*/
 		var i = users.indexOf(socket);
 		delete users[i];
-		io.sockets.emit('disconnect', socket.id);
+		io.sockets.emit('disconnect', i);
 		/*for(var i = users.length -1; i >= 0; i--){
 				if(_.isEqual(users[i].username, socket.username)){
 					users.splice(i, 1);
