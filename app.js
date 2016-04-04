@@ -23,8 +23,8 @@ io.sockets.on('connection', function(socket){
 			//lat: req.body.lat,
 			//lon: req.body.lon,
 			id:users.length,
-			socket: socket.id,
-			userRooms: []
+			socket: socket.id
+			//userRooms: []
 		};
 		socket.username = username;
 		usernames.push(client);
@@ -63,9 +63,12 @@ io.sockets.on('connection', function(socket){
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
-
-		delete usernames[usernames.indexOf(socket.username)];
-
+		for(var i = users.length -1; i >= 0; i--){
+				if(_.isEqual(users[i].username, socket.username)){
+					users.splice(i, 1);
+				}	
+		}
+		//delete usernames[usernames.indexOf(socket.username)];
 	});
 });
 
