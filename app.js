@@ -68,6 +68,7 @@ io.sockets.on('connection', function(socket){
 				}	
 		}
 		io.sockets.emit('updateRoom', socket.room);
+		io.sockets.in(thisRoom).emit('joinedRoom', "a user has joined!");
 	});
 	socket.on('leaveRoom', function(leftRoom){
 		socket.leave(leftRoom);
