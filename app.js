@@ -31,8 +31,9 @@ io.sockets.on('connection', function(socket){
 			socket: socket.id,
 			userRoom: []
 		};
+		socket.nickname = client.username;
 		//socket.id = users.length;
-		socket.username = username;
+		//socket.username = username;
 		usernames.push(client);
 		io.sockets.emit('updateUser', usernames);
 		io.sockets.emit('updateRooms', socketRooms);
@@ -80,7 +81,7 @@ io.sockets.on('connection', function(socket){
 				}	
 		}*/
 
-		io.sockets.emit('updateRoom', socket.room + 'has left the room');
+		io.sockets.emit('updateRoom', socket.nickname + 'has left the room');
 	});
 	socket.on('disconnect', function(){
 		/*for(var i = users.length -1; i >= 0; i--){
@@ -96,7 +97,7 @@ io.sockets.on('connection', function(socket){
 		}*/
 		var i = users.indexOf(socket);
 		delete users[i];
-		io.sockets.emit('disconnect', i);
+		io.sockets.emit('disconnect', socket.nickname);
 		/*for(var i = users.length -1; i >= 0; i--){
 				if(_.isEqual(users[i].username, socket.username)){
 					users.splice(i, 1);
