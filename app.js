@@ -58,7 +58,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('enterRoom', function(thisRoom){
 		socket.join(thisRoom);
 		for(var i = users.length -1; i >= 0; i--){
-				if(_.isEqual(users[i].socket, socket.id)){
+				if(_.isEqual(users[i].socket, socket)){
 					users[i].userRoom = thisRoom;
 				}	
 		}
