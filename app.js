@@ -17,7 +17,11 @@ var socketRooms = [];
 io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
+	
+	//TEST
 	socket.join('defaultRoom');
+	io.sockets.in('defaultRoom').emit('joined', "a user has joined!");
+
 	socket.on('addUser', function(username, room){
 		var client = {
 			username: username,
