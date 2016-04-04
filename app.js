@@ -68,7 +68,9 @@ io.sockets.on('connection', function(socket){
 				}	
 		}
 		io.sockets.emit('updateRoom', socket.room);
+		var roomSockets = Object.keys(socket.adapter.rooms[thisRoom])
 		io.sockets.in(thisRoom).emit('joinedRoom', "a user has joined!");
+		io.sockets.in(thisRoom).emit('playersInRoom', roomSockets);
 	});
 	socket.on('leaveRoom', function(leftRoom){
 		socket.leave(leftRoom);
