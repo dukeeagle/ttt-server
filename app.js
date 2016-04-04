@@ -66,14 +66,26 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('leaveRoom', function(leftRoom){
 		socket.leave(leftRoom);
-		for(var i = users.length -1; i >= 0; i--){
+		/*for(var i = users.length -1; i >= 0; i--){
 				if(_.isEqual(users[i].socket, socket.id)){
 					users[i].userRoom = undefined;
 				}	
-		}
+		}*/
+
 		io.sockets.emit('updateRoom', socket.username + 'has left the room');
 	});
 	socket.on('disconnect', function(){
+		for(var i = users.length -1; i >= 0; i--){
+			if(_.isEqual(users[i].socket, socket.id)){
+				for(var x = rooms.length - 1; x >= 0; x--){	
+					for(var y = room[x].players.length - 1; y >= 0; y--){
+						if(_.isEqual(users[i].username, room[x].players[y].username)){
+							rooms[x].players[y].splice(y, 1);
+						}
+					}
+				}
+			}		
+		}
 		/*for(var i = users.length -1; i >= 0; i--){
 				if(_.isEqual(users[i].username, socket.username)){
 					users.splice(i, 1);
