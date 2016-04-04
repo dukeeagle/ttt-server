@@ -68,7 +68,7 @@ io.sockets.on('connection', function(socket){
 				}	
 		}
 		io.sockets.emit('updateRoom', socket.room);
-		var roomSockets = Object.keys(socket.adapter.rooms[thisRoom])
+		var roomSockets = Object.keys(io.engine.clients)
 		io.sockets.in(thisRoom).emit('joinedRoom', "a user has joined!");
 		io.sockets.in(thisRoom).emit('playersInRoom', roomSockets);
 	});
