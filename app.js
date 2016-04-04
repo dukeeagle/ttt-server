@@ -17,6 +17,7 @@ var socketRooms = [];
 io.sockets.on('connection', function(socket){
 	socket.emit('hello!');
 	console.log('connection');
+	socket.join('defaultRoom');
 	socket.on('addUser', function(username, room){
 		var client = {
 			username: username,
