@@ -72,7 +72,7 @@ io.sockets.on('connection', function(socket){
 				}	
 		}*/
 
-		io.sockets.emit('updateRoom', socket.username + 'has left the room');
+		io.sockets.emit('updateRoom', socket.room + 'has left the room');
 	});
 	socket.on('disconnect', function(){
 		/*for(var i = users.length -1; i >= 0; i--){
