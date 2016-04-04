@@ -26,7 +26,7 @@ io.sockets.on('connection', function(socket){
 			socket: socket.id,
 			userRoom: []
 		};
-		socket.id = users.length;
+		//socket.id = users.length;
 		socket.username = username;
 		usernames.push(client);
 		io.sockets.emit('updateUser', usernames);
