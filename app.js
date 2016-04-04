@@ -22,6 +22,7 @@ io.sockets.on('connection', function(socket){
 			username: username,
 			//lat: req.body.lat,
 			//lon: req.body.lon,
+			id:users.length,
 			socket: socket.id,
 			userRooms: []
 		};
@@ -56,7 +57,6 @@ io.sockets.on('connection', function(socket){
 	socket.on('enterRoom', function(thisRoom){
 		socket.join(thisRoom);
 		io.sockets.emit('updateRoom', socket.room);
-		socket.username
 	});
 	socket.on('leaveRoom', function(leftRoom){
 		socket.leave(leftRoom);
@@ -64,8 +64,7 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('disconnect', function(){
 
-		/*delete usernames[socket.username];
-		socket.leave(socket.room);*/
+		delete usernames[usernames.indexOf(socket.username)];
 
 	});
 });
@@ -76,12 +75,7 @@ function haversine(lat1, lon1, lat2, lon2){
 		
 	Number.prototype.toRad = function() {
 	   return this * Math.PI / 180;
-	}
-
-	var lat2 = 9.748916999999999; 
-	var lon2 = -83.75342799999999; 
-	var lat1 = 44.875818; 
-	var lon1 = -93.53282100000001; 
+	} 
 
 	var R = 6371; // earth's radius in km 
 
