@@ -84,17 +84,18 @@ io.sockets.on('connection', function(socket){
 		io.sockets.emit('updateRoom', socket.nickname + 'has left the room');
 	});
 	socket.on('disconnect', function(){
-		/*for(var i = users.length -1; i >= 0; i--){
-			if(_.isEqual(users[i].socket, socket.id)){
+		for(var i = users.length -1; i >= 0; i--){
+			if(_.isEqual(users[i].socket, socket.nickname)){
 				for(var x = rooms.length - 1; x >= 0; x--){	
 					for(var y = room[x].players.length - 1; y >= 0; y--){
 						if(_.isEqual(users[i].username, room[x].players[y].username)){
 							rooms[x].players[y].splice(y, 1);
+							users[i].splice(i, 1);
 						}
 					}
 				}
 			}		
-		}*/
+		}
 		var i = users.indexOf(socket);
 		delete users[i];
 		io.sockets.emit('disconnect', socket.nickname);
