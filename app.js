@@ -85,8 +85,8 @@ io.sockets.on('connection', function(socket){
 	});
 	socket.on('disconnect', function(){
 			for(var x = rooms.length - 1; x >= 0; x--){	
-				for(var y = room[x].players.length - 1; y >= 0; y--){
-					if(_.isEqual(socket.nickname, room[x].players[y].username)){
+				for(var y = rooms[x].players.length - 1; y >= 0; y--){
+					if(_.isEqual(socket.nickname, rooms[x].players[y].username)){
 						rooms[x].players[y].splice(y, 1);
 					}
 				}
