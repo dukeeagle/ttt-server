@@ -119,6 +119,34 @@ app.all('*', function(request, response, next) {
     next();
 });
 
+function haversine(lat1, lon1, lat2, lon2){
+  
+  var isClose = 0;
+    
+  Number.prototype.toRad = function() {
+     return this * Math.PI / 180;
+  } 
+
+  var R = 6371; // earth's radius in km 
+
+  var x1 = lat2-lat1;
+  var dLat = x1.toRad();  
+  var x2 = lon2-lon1;
+  var dLon = x2.toRad();  
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+                  Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+                  Math.sin(dLon/2) * Math.sin(dLon/2);  
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c;  //in km
+
+  if(d <= 8.04672){ //5 miles
+    isClose = 1;
+  } 
+  return isClose;
+
+  console.log(d);
+}
+
 
 var users = [];
 
@@ -142,10 +170,19 @@ app.post('/rooms', function(req,res){
 		timestamp: new Date(),
 		lat:req.body.lat,
 		lon:req.body.lon,
+		userRooms: [],
 		messages: [],
 		players: []
 	};
 
+	for(x = users.length - 1; x >= 0; x--){
+		for(i = rooms.length - 1; i >= 0; i--){
+			var close = haversine(rooms[i].lat, rooms[i].lon, users[x].lat, users[x].lon);
+			if(close){
+				rooms[i].userRooms.push(users[x]);
+			}
+		}
+	}
 	rooms.push(newRoom);
 	res.json(rooms);
 	//res.json(usernames);
