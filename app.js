@@ -175,14 +175,14 @@ app.post('/rooms', function(req,res){
 		players: []
 	};
 
-	for(x = users.length - 1; x >= 0; x--){
+	/*for(x = users.length - 1; x >= 0; x--){
 		for(i = rooms.length - 1; i >= 0; i--){
 			var close = haversine(rooms[i].lat, rooms[i].lon, users[x].lat, users[x].lon);
 			if(close == 1){
 				rooms[i].userRooms.push(users[x].username);
 			}
 		}
-	}
+	}*/
 	rooms.push(newRoom);
 	res.json(rooms);
 	//res.json(usernames);
