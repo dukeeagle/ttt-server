@@ -119,7 +119,7 @@ app.all('*', function(request, response, next) {
     next();
 });
 
-function haversine(lat1, lon1, lat2, lon2){
+/*function haversine(lat1, lon1, lat2, lon2){
   
   var isClose = 0;
     
@@ -145,7 +145,7 @@ function haversine(lat1, lon1, lat2, lon2){
   return isClose;
 
   console.log(d);
-}
+}*/
 
 
 var users = [];
