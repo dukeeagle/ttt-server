@@ -168,8 +168,8 @@ app.post('/rooms', function(req,res){
 		id:rooms.length, 
 		username:req.body.username,
 		timestamp: new Date(),
-		lat:req.body.lat,
-		lon:req.body.lon,
+		//lat:req.body.lat,
+		//lon:req.body.lon,
 		userRooms: [],
 		messages: [],
 		players: []
@@ -185,7 +185,7 @@ app.post('/rooms', function(req,res){
 	}*/
 	rooms.push(newRoom);
 	res.json(rooms);
-	//res.json(usernames);
+	res.json(usernames);
 
 	socketRooms.push(newRoom);
 	io.sockets.emit('createdRoom', rooms);
